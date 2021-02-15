@@ -50,11 +50,13 @@
 }
 
 .texto-pcpal {
-    display: inline-block;
-      width: 48%;
+    text-align: justify;
+    /* display: inline-block;
+      width: 48%; */
       @media (max-width: 620px) {
         width: 100%;
       }
+      text-align: justify;
 }
 
 .texto-contacto {
@@ -79,7 +81,7 @@
 }
 
 #carouselCiber {
-    width: 45%;
+    width: 100%;
 }
 
 .formulario-cj {
