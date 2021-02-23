@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <title>MCS - Herramientas</title>
+    <!-- Etiquetas necesarias de Bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-evenly">
+        <div class="container-fluid">
+            <div>
+                <a class="navbar-brand" href="https://comillas.edu">
+                    <img src="https://www.comillas.edu/templates/comillasestudios/images/logo.png" alt=""
+                        class="image-fluid" style="height: 40px">
+                </a>
+                <img src="https://img.icons8.com/pastel-glyph/344/security-shield.png" class="image-fluid" style="height: 40px;">
+            </div>
+            
+            <div>
+                <a class="navbar-brand" href="../index.html" ><b>Master en Ciberseguridad (MCS)</b></a>
+                
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../index.html">Información</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="./eventos.html">Eventos</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" aria-current="page">
+                                #CiberJuevesICAI
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="./ciberjueves-3.html">¿Qué es?</a></li>
+                                <li><a class="dropdown-item" href="./ciberjueves-2.html">2020-2021</a></li>
+                                <li><a class="dropdown-item" href="./ciberjueves-1.html">2019-2020</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="nav-link active" aria-current="page" href="./herramientas.html">Herramientas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="./contacto.html">Contacto</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container-fluid encabezado">
+        <div class="titulo-pcpal">
+            <h2>
+                Herramientas de Ciberseguridad
+            </h2>
+        </div>
+
+        <div class="titulo-secundario">
+            <h4>
+                Compruebe si una página web es maliciosa
+            </h4>
+        </div>
+
+    </div>
+
+    <div class="phish-tank herramienta">
+        <form id="form-phishing">
+            <div class="form-group">
+                <label for="url"><b>URL</b></label><br>
+                <input type="text" id="url" name="url" class="formcj form-field" placeholder="Introduzca una URL" pattern="[a-z0-9+-_?/~:.#@!$&'*,;=()\]\[]+\.[a-z/.]{2,}$" required title="Tiene que tener el siguiente formato aaa.es - www.aaa.es - https://www.aaa.es"><br>
+                <p><br><a><button type="submit" class="btn btn-pcpal btn-enviar" value="value" data-bs-toggle="modal" data-bs-target="#modalCJ">Verificar seguridad</button></a></p>
+            </div>
+        </form>
+        <div class="respuesta-phishing" id="respuesta-ph">
+
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Contacto:</span>
+            <span class="text-muted"><a href="mailto:jarauta@comillas.edu">jarauta@comillas.edu</a></span>
+        </div>
+    </footer>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+<script>
+    const urlweb = document.getElementById("url");
+    urlweb.addEventListener('submit', function(event) {
+        if(urlweb.validity.patternMismatch) {
+            urlweb.setCustomValidity("Introduzca una URL correcta");
+        } else {
+            urlweb.setCustomValidity("");
+        }
+    })
+</script>
+
+<script>
+    document.getElementById("form-phishing").addEventListener('submit', mirarwebsite);
+    function mirarwebsite (event){
+        event.preventDefault()
+        
+        let url = document.getElementById("url").value;
+        let data = {
+                "client": {
+                    "clientId":      "ciberjuevesicai",
+                    "clientVersion": "0.4"
+                },
+                "threatInfo": {
+                    "threatTypes":      ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"],
+                    "platformTypes":    ["ANY_PLATFORM"],
+                    "threatEntryTypes": ["URL"],
+                    "threatEntries": [
+                        {"url": url}
+                    ]
+                }
+            };
+
+        fetch('https://safebrowsing.googleapis.com/v4/threatMatches:find?key=AIzaSyApIggTdzRfXexrWkf9H1Pq2eEZb71K9Nk', 
+        {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+            
+        })
+        .then(response => {
+            if(response.ok) {
+                return response.json()
+                
+            } else {
+                throw Error("Error en la respuesta" + response.status)
+            }
+        })
+        .then(data => {
+            
+            if(Object.keys(data).length === 0) {
+                
+                crearAlertaOk(data)
+            } else {
+                
+                crearAlertaPeligro(data)
+            }
+            
+            
+        })
+        .catch(error => console.error(error))
+        
+    }
+
+    function crearAlertaPeligro(data) {
+
+        let tipo_peligro;
+        switch(data.matches[0].threatType) {
+            case "SOCIAL_ENGINEERING":
+                tipo_peligro = "Ingeniería Social";
+                break;
+            case "MALWARE":
+                tipo_peligro = "Malware"
+                break;
+            case "UNWANTED_SOFTWARE":
+                tipo_peligro = "Software no Deseado"
+                break;
+            case "POTENTIALLY_HARMFUL_APPLICATION":
+                tipo_peligro = "Aplicacion potencialmente peligrosa"
+                break;
+            default:
+                tipo_peligro = "Otro"
+        }
+                
+
+        document.getElementById("respuesta-ph").innerHTML = 
+        `<div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Esta página es maliciosa</h4>
+                <p>Según el servicio de SafeBrowsing de Google, la página web <strong>` 
+                    + document.getElementById("url").value 
+                    + `</strong> presenta los siguientes problemas de seguridad.</p>
+                    <p> 
+                <hr> <p> `
+                    + `Tipo de Peligro: <strong>` + tipo_peligro +
+                `</strong><hr>
+                <p class="mb-0">Tenga cuidado al navegar, y abandone la página web.</p>
+            </div>`
+    } 
+
+    function crearAlertaOk(data) {
+        document.getElementById("respuesta-ph").innerHTML = 
+        `<div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Esta página no es maliciosa</h4>
+                <p>Según el servicio de SafeBrowsing de Google, la página web ` 
+                    + document.getElementById("url").value 
+                    + ` no presenta ningún problema de seguridad.</p>
+                <hr>
+                <p class="mb-0">Aún así, tenga cuidado al navegar.</p>
+            </div>`
+    }
+</script>
+
+</html>

@@ -18,7 +18,7 @@
     margin-top: 2em;
 }
 .footer {
-    position: sticky;
+    position: fixed;
     bottom: 0;
     width: 100%;
     height: 60px;
@@ -93,5 +93,13 @@
 
 .formcj {
     margin: 5px;
+}
+
+.herramienta {
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
